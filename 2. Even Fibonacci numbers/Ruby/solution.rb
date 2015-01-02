@@ -3,3 +3,13 @@
 # 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ...
 
 # By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
+
+  def sum_of_even_fib_numbers
+    even_fib_numbers = [1,2]
+    sum_of_even_fib_numbers = 0
+    while (even_fib_numbers.last + even_fib_numbers[-2]) < 4000000
+      even_fib_numbers << even_fib_numbers.last + even_fib_numbers[-2]
+    end
+    even_fib_numbers.each{|x| sum_of_even_fib_numbers += x if x.even?}
+    sum_of_even_fib_numbers
+  end
