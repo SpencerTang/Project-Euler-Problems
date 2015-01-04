@@ -2,13 +2,19 @@
 
 # What is the largest prime factor of the number 600851475143 ?
 
-def find_largest_prime_factor
-  number = Math.sqrt(600851475143).ceil
-  largest_prime = 0
-  while(number > 0) do 
-    number -= 1
-    if (number % 2 != 0 && number % 3 != 0 && number % 5 != 0)
-      largest_prime = number
-    end
+
+  def all_factors(n)
+    (2..Math.sqrt(n)).collect do |x|
+      if n % x == 0 
+        [x, n / x]
+      end
+    end.compact.flatten
   end
-end
+
+  def is_prime?(n)
+    all_factors(n).empty?
+  end
+
+  def all_prime_factors(n)
+    all_factors(n).select{|x| x if is_prime?(x)}
+  end
