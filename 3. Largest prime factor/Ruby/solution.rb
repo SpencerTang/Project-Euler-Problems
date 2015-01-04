@@ -4,11 +4,14 @@
 
 
   def all_factors(n)
-    (2..Math.sqrt(n)).collect do |x|
+    factors = []
+    (2..Math.sqrt(n)).each do |x|
       if n % x == 0 
-        [x, n / x]
+        factors << x
+        factors << n/x
       end
-    end.compact.flatten
+    end
+    factors
   end
 
   def is_prime?(n)
@@ -17,4 +20,8 @@
 
   def all_prime_factors(n)
     all_factors(n).select{|x| x if is_prime?(x)}
+  end
+
+  def largest_prime_factor(n)
+    all_prime_factors(n).sort.last
   end
