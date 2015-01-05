@@ -4,20 +4,19 @@
 
 
   def lowest_common_multiple(n)
-    distinct_primes = []
     prime_numbers = (2..n).select{|x| is_prime(x)}
-    prime_numbers.each do |x|
-      count = 1
-      primes = x
-      while(primes < 20) do 
-        if x ** count > primes 
-          primes = x ** count
+    distinct_primes = prime_numbers.collect do |x|
+      exponent = 1
+      prime = x
+      while(prime < n) do 
+        if x ** exponent > prime
+          prime = x ** exponent
         end
-        count += 1
+        exponent += 1
       end
-      distinct_primes << primes / x
+      prime / x
     end
-    distinct_primes
+    distinct_primes.inject{|x,y| x * y}
   end
 
   def all_factors(n)
