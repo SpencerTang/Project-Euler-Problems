@@ -4,12 +4,15 @@
 
 
 def lowest_common_multiple(n)
-
+  distinct_primes = []
   prime_numbers = (2..n).select{|x| is_prime(x)}
-  # distinct_primes = prime_numbers.collect do |x|
-
-
-  # end
+  (2..20).each do |x|
+    prime_numbers.each |y|
+      if x % y == 0
+        
+      end
+    end
+  end
 end
 
 def all_factors(n)
