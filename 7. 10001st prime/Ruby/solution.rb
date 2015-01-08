@@ -1,10 +1,17 @@
-# sieve attempt
 
-def find_prime(n)
-  numbers = (2..n).map{|x| x}
-  numbers.each_with_index do |number, index|
-    numbers.each do |second_number|
-      numbers.slice!(index) if second_number % number == 0
+  def find_prime(n)
+    primes = []
+    count = 2
+    while primes.length < n
+      if prime?(count)
+        primes << count
+      end
+      count += 1
     end
+    primes.last
   end
-end
+
+  def prime?(n)
+    non_primes = (2..Math.sqrt(n)).select{|x| n % x == 0}
+    non_primes.empty?
+  end
