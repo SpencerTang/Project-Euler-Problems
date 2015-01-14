@@ -25,67 +25,44 @@ string ="
 
 # What is the greatest product of four adjacent numbers in the same direction (up, down, left, right, or diagonally) in the 20×20 grid?
 
-
-def grid(string)
-  grid = []
-  string_array = string.split(" ").collect{|x| x.to_i}
-  start_index = 0 
-
-  20.times do 
-    grid << string_array.slice(start_index,20)
-    start_index += 20
+  def grid(string)
+    grid = []
+    string_array = string.split(" ").collect{|x| x.to_i}
+    start_index = 0 
+    20.times do 
+      grid << string_array.slice(start_index,20)
+      start_index += 20
+    end
+    grid
   end
 
-  grid
-end
-
-def greatest_product(string)
-  grid = grid(string)
-  product = 0
-  20.times do |y|
-    20.times do |x|
-      if has_product?(y,x)  
-        if up_down(grid,y,x) > product
-          product = up_down(grid,y,x)
-        elsif left_right(grid,y,x) > product
-          product = left_right(grid,y,x) 
-        elsif diagonal(grid,y,x) > product
-          product = diagonal(grid,y,x)
+  def greatest_product(string)
+    grid = grid(string)
+    product = 0
+    20.times do |y|
+      20.times do |x|
+        if has_product?(y,x) && check_product(grid,y,x) > product
+          product = check_product(grid,y,x)
         end
       end
     end
   end
-  p product
-end
 
-def has_product?(coordinate_x,coordinate_y)
-  coordinate_x > 3 && coordinate_x < 17 && coordinate_y > 3 && coordinate_y < 17 
-end
+  def has_product?(coordinate_x,coordinate_y)
+    coordinate_x > 3 && coordinate_x < 17 && coordinate_y > 3 && coordinate_y < 17 
+  end
 
-def up_down(grid,y,x)
- up = grid[y][x] * grid[y + 1][x] * grid[y + 2][x] * grid[y + 3][x]
- down = grid[y][x] * grid[y - 1][x] * grid[y - 2][x] * grid[y - 3][x]
- if up > down
-  return up
- end
- down
-end
-def left_right(grid,y,x)
- left = grid[y][x] * grid[y][x-1] * grid[y][x-2] * grid[y][x-3]
- right = grid[y][x] * grid[y][x+1] * grid[y][x+2] * grid[y][x+3]
- if left > right
-  return left
- end
- right
-end
+  def check_product(grid,y,x)
+   up_left = grid[y][x] * grid[y+1][x-1] * grid[y+2][x-2] * grid[y+3][x-3]
+   down_left = grid[y][x] * grid[y-1][x-1] * grid[y-2][x-2] * grid[y-3][x-3]
+   up_right = grid[y][x] * grid[y+1][x+1] * grid[y+2][x+2] * grid[y+3][x+3]
+   down_right = grid[y][x] * grid[y-1][x+1] * grid[y-2][x+2] * grid[y-3][x+3]
+   left = grid[y][x] * grid[y][x-1] * grid[y][x-2] * grid[y][x-3]
+   right = grid[y][x] * grid[y][x+1] * grid[y][x+2] * grid[y][x+3]
+   up = grid[y][x] * grid[y + 1][x] * grid[y + 2][x] * grid[y + 3][x]
+   down = grid[y][x] * grid[y - 1][x] * grid[y - 2][x] * grid[y - 3][x]
+   diagonals= [up_left,down_left,down_right,up_right,left,right,up,down]
+   diagonals.sort.last
+  end
 
-def diagonal(grid,y,x)
- up_left = grid[y][x] * grid[y+1][x-1] * grid[y+2][x-2] * grid[y+3][x-3]
- down_left = grid[y][x] * grid[y-1][x-1] * grid[y-2][x-2] * grid[y-3][x-3]
- up_right = grid[y][x] * grid[y+1][x+1] * grid[y+2][x+2] * grid[y+3][x+3]
- down_right = grid[y][x] * grid[y-1][x+1] * grid[y-2][x+2] * grid[y-3][x+3]
- diagonals= [up_left,down_left,down_right,up_right]
- diagonals.sort.last
-end
-greatest_product(string)
 
