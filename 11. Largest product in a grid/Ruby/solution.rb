@@ -80,12 +80,12 @@ def left_right(grid,y,x)
 end
 
 def diagonal(grid,y,x)
- left = grid[y][x] * grid[y-1][x-1] * grid[y-2][x-2] * grid[y-3][x-3]
- right = grid[y][x] * grid[y+1][x+1] * grid[y+2][x+2] * grid[y+3][x+3]
- if left > right
-  return left
- end
- right
+ up_left = grid[y][x] * grid[y+1][x-1] * grid[y+2][x-2] * grid[y+3][x-3]
+ down_left = grid[y][x] * grid[y-1][x-1] * grid[y-2][x-2] * grid[y-3][x-3]
+ up_right = grid[y][x] * grid[y+1][x+1] * grid[y+2][x+2] * grid[y+3][x+3]
+ down_right = grid[y][x] * grid[y-1][x+1] * grid[y-2][x+2] * grid[y-3][x+3]
+ diagonals= [up_left,down_left,down_right,up_right]
+ diagonals.sort.last
 end
 greatest_product(string)
 
