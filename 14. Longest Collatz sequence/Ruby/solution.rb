@@ -15,10 +15,16 @@
 
 def largest_collatz
   collatz = {0 => 0}
+  highest_value = 0
+  key = 0
   (2..1000000).each do |x|
     make_collatz(x,collatz)
+    if collatz[x] > highest_value
+      highest_value = collatz[x]
+      key = x
+    end
   end
- collatz.sort_by{|x,y| y}.last.first
+  key
 end
 
 def make_collatz(n,collatz) 
