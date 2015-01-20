@@ -28,8 +28,10 @@ var calcFactors = function(n){
 
 var calc500 = function(){
   var n = 0;
+  var k = 0;
   while(calcFactors(n) < 500){
-    n++
+    k += 1
+    n = k * ((k+1)/2)
   }
   return n;
 };
