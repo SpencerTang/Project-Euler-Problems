@@ -11,3 +11,35 @@
 // Which starting number, under one million, produces the longest chain?
 
 // NOTE: Once the chain starts the terms are allowed to go above one million.
+
+var largestCollatz = function(){
+  var collatz = {0:0};
+  var highestValue = 0;
+  var key = 0;
+  for(var i = 0; i <= 1000000; i++){
+    makeCollatz(i,collatz)
+    if(highestValue < collatz[i]){
+      highestValue = collatz[i]
+      key = i
+    }
+  }
+  return key;
+};
+
+var makeCollatz = function(n,collat){
+ var original = n;
+ var collatzCount = 0;
+ while (n != 1){
+   if (collat[n] != undefined){
+    return collat[original] = collat[n] + collatzCount 
+   }
+   else if (n % 2 === 0){
+    n = n/2
+   }
+   else if (n % 2 != 0){
+    n = (3 * n) + 1
+   }
+   collatzCount += 1
+ }
+ return collat[original] = collatzCount
+};
